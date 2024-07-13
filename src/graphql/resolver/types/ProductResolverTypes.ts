@@ -1,28 +1,28 @@
 export type GetProductArgs = {
-    _id: string
+  _id: string
 }
 
 export type GetProductsByProducerIdArgs = {
-    producerId: string
+  producerId: string
 }
 
 export type CreateProductArgs = {
-    vintage: string
-    name: string
-    producerId: string
+  vintage: string
+  name: string
+  producerId: string
 }
 
 export type UpdateProductArgs = {
-    _id: string
-    vintage?: string
-    name?: string
-    producerId?: string
+  _id: string
+  vintage?: string
+  name?: string
+  producerId?: string
 }
 
 export type DeleteProductArgs = {
-    _id: string
+  _id: string
 }
 
 export type DeleteProductsArgs = {
-    productIds: string[]
+  productIds: string[]
 }

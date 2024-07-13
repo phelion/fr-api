@@ -6,9 +6,5 @@ import { schema as ProducerSchema } from './ProducerSchema'
 
 const concatenateSchemas = (schemas: string[]) => schemas.join('')
 export default buildSchema(
-    concatenateSchemas([
-        common,
-        ProductSchema,
-        ProducerSchema
-    ])
+  concatenateSchemas([common, ProductSchema, ProducerSchema]),
 )

@@ -12,21 +12,27 @@ const mongoPass = process.env.DB_PASSWORD || 'root'
 const mongoHost = 'mongo'
 const mongoDb = 'main'
 
-mongoose.connect(`mongodb://${mongoUser}:${mongoPass}@${mongoHost}/${mongoDb}?authSource=admin`)
-mongoose.connection.once("open", () => {
-    console.log("Connected to MongoDB");
-}).on('error', (error) => {
+mongoose.connect(
+  `mongodb://${mongoUser}:${mongoPass}@${mongoHost}/${mongoDb}?authSource=admin`,
+)
+mongoose.connection
+  .once('open', () => {
+    console.log('Connected to MongoDB')
+  })
+  .on('error', (error) => {
     console.log('MongoDB connection error:', error)
-})
+  })
 
 app.all(
-    '/graphql',
-    createHandler({
-        schema: schema,
-        rootValue: resolver,
-    })
+  '/graphql',
+  createHandler({
+    schema: schema,
+    rootValue: resolver,
+  }),
 )
 
 app.listen(process.env.API_PORT || 3000, () => {
-    console.log(`Running a GraphQL API server at http://localhost:${process.env.API_PORT || 3000}/graphql`)
+  console.log(
+    `Running a GraphQL API server at http://localhost:${process.env.API_PORT || 3000}/graphql`,
+  )
 })

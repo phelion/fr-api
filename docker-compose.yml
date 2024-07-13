@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  # API
+  api:
+    build: .
+    command: npm run start
+    volumes:
+      - .:/usr/app/
+      - /usr/app/node_modules
+    ports:
+      - ${API_PORT:-3000}:${API_PORT:-3000}
+    environment:
+      API_PORT: ${API_PORT:-3000}
+      DB_USER: ${DB_USER:-root}
+      DB_PASSWORD: ${DB_PASSWORD:-root}
+
+  # Database
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER:-root}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MONOG_INITDB_DATABASE: main
+
+  # Database GUI
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${DB_USER:-root}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${DB_PASSWORD:-root}
+      ME_CONFIG_MONGODB_URL: mongodb://${DB_USER:-root}:${DB_PASSWORD:-root}@mongo:27017/
+      ME_CONFIG_BASICAUTH: false
